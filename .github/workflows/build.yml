@@ -19,11 +19,9 @@ jobs:
           node-version: 20
 
       - name: Instalar dependências
-        working-directory: msg-viewer-app
         run: npm install
 
       - name: Build do app macOS
-        working-directory: msg-viewer-app
         run: npm run build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,6 +32,6 @@ jobs:
         with:
           name: MSG-Viewer-macOS
           path: |
-            msg-viewer-app/dist/*.dmg
-            msg-viewer-app/dist/*.zip
+            dist/*.dmg
+            dist/*.zip
           retention-days: 30
