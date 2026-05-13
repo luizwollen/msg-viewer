@@ -1,0 +1,46 @@
+{
+  "name": "msg-viewer",
+  "version": "1.0.0",
+  "description": "Visualizador nativo de arquivos .MSG para macOS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --mac"
+  },
+  "dependencies": {
+    "@kenjiuno/msgreader": "^1.9.1",
+    "iconv-lite": "^0.6.3"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.msgviewer.app",
+    "productName": "MSG Viewer",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        { "target": "dmg", "arch": ["x64", "arm64"] },
+        { "target": "zip", "arch": ["x64", "arm64"] }
+      ],
+      "identity": null
+    },
+    "dmg": {
+      "title": "MSG Viewer"
+    },
+    "fileAssociations": [
+      {
+        "ext": "msg",
+        "name": "Outlook Message",
+        "role": "Viewer"
+      }
+    ],
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "node_modules/**/*"
+    ]
+  }
+}
