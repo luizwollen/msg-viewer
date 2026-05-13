@@ -3,7 +3,7 @@ name: Build macOS App
 on:
   push:
     branches: [main]
-  workflow_dispatch: # permite rodar manualmente pelo site do GitHub
+  workflow_dispatch:
 
 jobs:
   build-mac:
@@ -17,22 +17,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Instalar dependências
+        working-directory: msg-viewer-app
         run: npm install
 
       - name: Build do app macOS
+        working-directory: msg-viewer-app
         run: npm run build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSC_IDENTITY_AUTO_DISCOVERY: false # sem assinatura de código
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
       - name: Upload do .dmg como artefato
         uses: actions/upload-artifact@v4
         with:
           name: MSG-Viewer-macOS
           path: |
-            dist/*.dmg
-            dist/*.zip
-          retention-days: 30 # fica disponível por 30 dias para download
+            msg-viewer-app/dist/*.dmg
+            msg-viewer-app/dist/*.zip
+          retention-days: 30
